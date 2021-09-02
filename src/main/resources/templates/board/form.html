@@ -16,46 +16,20 @@
 
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" th:replace="fragments/common :: menu('board')">
-    <!-- <a class="navbar-brand" href="#">Spring Boot Tutorial</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">홈 <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">게시판</a>
-            </li>
-        </ul>
-    </div> -->
 </nav>
 
 <div class="container">
     <h2>게시판</h2>
-    <div>총 건수 : <span th:text="${#lists.size(boards)}"></span>
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">번호</th>
-                <th scope="col">제목</th>
-                <th scope="col">작성자</live th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr th:each="board : ${boards}">
-                <td th:text="${board.id}">Larry</td>
-                <td th:text="${board.title}">the Bird</td>
-                <td>박정현</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="text-right">
-            <button type="button" class="btn btn-info">글쓰기</button>
-          </div>
-    </div>
+    <form>
+      <div class="form-group">
+        <label for="title" class="form-label">제목</label>
+        <input type="email" class="form-control" id="title" placeholder="name@example.com">
+      </div>
+      <div class="form-group">
+        <label for="content" class="form-label">내용</label>
+        <textarea class="form-control" id="content" rows="3"></textarea>
+      </div>
+    </form>
 </div>
 
 <!-- Optional JavaScript -->
