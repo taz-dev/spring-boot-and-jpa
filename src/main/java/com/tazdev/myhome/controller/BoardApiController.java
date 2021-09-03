@@ -30,7 +30,7 @@ class BoardApiController {
         return repository.save(newBoard);
     }
 
-    //Single item
+    //게시글 한개 불러오기
     @GetMapping("/boards/{id}")
     Board one(@PathVariable Long id) {
         return repository.findById(id).orElse(null);
