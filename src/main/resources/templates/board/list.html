@@ -55,7 +55,7 @@
         <tr th:each="board : ${boards}">
           <td th:text="${board.id}">Larry</td>
           <td><a th:text="${board.title}" th:href="@{/board/form(id=${board.id})}">the Bird</a></td>
-          <td>박정현</td>
+          <td th:text="${board.user.username}">박정현</td>
         </tr>
       </tbody>
     </table>
