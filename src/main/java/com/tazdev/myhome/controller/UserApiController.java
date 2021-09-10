@@ -1,12 +1,12 @@
 package com.tazdev.myhome.controller;
 
+import com.querydsl.core.types.Predicate;
 import com.tazdev.myhome.model.Board;
 import com.tazdev.myhome.model.User;
 import com.tazdev.myhome.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.util.StringUtils;
 
 import java.util.List;
 
@@ -19,12 +19,25 @@ class UserApiController {
     private UserRepository repository;
 
     @GetMapping("/users")
-    List<User> all() {
-       List<User> users = repository.findAll();
-       log.debug("getBoards().size() 호출전");
-       log.debug("getBoards().size() : {}", users.get(0).getBoards().size());
-       log.debug("getBoards().size() 호출후");
-       return users;
+    List<User> all(@RequestParam(required = false) String method, @RequestParam(required = false) String text){
+        List<User> users = null;
+
+        if("query".equals(method)){
+            users = repository.findByUsernameQuery(text);
+
+        }else if("nativeQuery".equals(method)){
+            users = repository.findByUsernameNativeQuery(text);
+
+        }else if("querydsl".equals(method)){
+//            QCustomer customer = QCustomer.customer;
+//            Predicate predicate = user.firstname.equalsIgnoreCase("dave")
+//                    .and(user.lastname.startsWithIgnoreCase("mathews"));
+//            repository.findAll(predicate);
+
+        }else{
+            users = repository.findAll();
+        }
+        return users;
     }
 
     @PostMapping("/users")
