@@ -1,15 +1,12 @@
 package com.tazdev.myhome.controller;
 
 import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import com.tazdev.myhome.model.Board;
 import com.tazdev.myhome.model.User;
 import com.tazdev.myhome.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -33,6 +30,12 @@ class UserApiController {
             QUser user = QUser.user;
             Predicate predicate = user.username.contains(text);
             users = repository.findAll(predicate);
+
+        }else if("querydslCustom".equals(method)){
+            users = repository.findByUsernameCustom(text);
+
+        }else if("jdbc".equals(method)){
+            users = repository.findByUsernameJdbc(text);
 
         }else{
             users = repository.findAll();
