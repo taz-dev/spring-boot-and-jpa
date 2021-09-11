@@ -1,6 +1,7 @@
 package com.tazdev.myhome.controller;
 
 import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.tazdev.myhome.model.Board;
 import com.tazdev.myhome.model.User;
 import com.tazdev.myhome.repository.UserRepository;
@@ -19,8 +20,8 @@ class UserApiController {
     private UserRepository repository;
 
     @GetMapping("/users")
-    List<User> all(@RequestParam(required = false) String method, @RequestParam(required = false) String text){
-        List<User> users = null;
+    Iterable<User> all(@RequestParam(required = false) String method, @RequestParam(required = false) String text){
+        Iterable<User> users = null;
 
         if("query".equals(method)){
             users = repository.findByUsernameQuery(text);
@@ -29,10 +30,9 @@ class UserApiController {
             users = repository.findByUsernameNativeQuery(text);
 
         }else if("querydsl".equals(method)){
-//            QCustomer customer = QCustomer.customer;
-//            Predicate predicate = user.firstname.equalsIgnoreCase("dave")
-//                    .and(user.lastname.startsWithIgnoreCase("mathews"));
-//            repository.findAll(predicate);
+            QUser user = QUser.user;
+            Predicate predicate = user.username.contains(text);
+            users = repository.findAll(predicate);
 
         }else{
             users = repository.findAll();
